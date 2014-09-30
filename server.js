@@ -4,9 +4,12 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express'); 		// call express
-var app        = express(); 				// define our app using express
-var bodyParser = require('body-parser');
+var express     = require('express'); 		// call express
+var app         = express(); 				// define our app using express
+var bodyParser  = require('body-parser');
+
+// Our models
+var Calibration = require('./app/models/calibration');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -25,6 +28,14 @@ router.get('/', function(req, res) {
 });
 
 // more routes for our API will happen here
+router.route('/calibrations/:calibration_id')
+  .get(function(req, res) {
+    Calibration.findById(req.params.calibration_id, function(err, calibration) {
+      if (err)
+        res.send(err);
+      res.json(calibration);
+    });
+  });
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
