@@ -21,6 +21,19 @@ function Calibration() {
       });
       connection.end()
     };
-};
+  this.findByFilter = function(params, callback) {
+    var query = 'SELECT * FROM calibrations WHERE minAge > ? AND maxAge < ?';
+    var connection = getConnection();
+    connection.connect();
+    connection.query(query, [params.min, params.max], function(err, results) {
+      if(err) {
+        callback(null,err);
+      } else {
+        callback(results);
+      }
+    });
+    connection.end();
+  };
+}
 
 module.exports = new Calibration();

@@ -39,6 +39,19 @@ router.route('/calibrations/:calibration_id')
     });
   });
 
+router.route('/calibrations')
+  .get(function(req, res) {
+    if(req.query.hasOwnProperty('filter')) {
+      Calibration.findByFilter(req.query, function(err, calibrations) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.json(calibrations);
+        }
+      });
+    }
+  });
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
@@ -46,4 +59,4 @@ app.use('/api', router);
 // START THE SERVER
 // =============================================================================
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Server listening on port ' + port);
