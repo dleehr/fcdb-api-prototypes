@@ -16,7 +16,7 @@ var Calibration = require('./app/models/calibration');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080; 		// set our port
+var port = process.env.PORT || 8081; 		// set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -31,9 +31,11 @@ router.get('/', function(req, res) {
 router.route('/calibrations/:calibration_id')
   .get(function(req, res) {
     Calibration.findById(req.params.calibration_id, function(err, calibration) {
-      if (err)
+      if (err) {
         res.send(err);
-      res.json(calibration);
+      } else {
+        res.json(calibration);
+      }
     });
   });
 
