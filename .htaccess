@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteBase /api
+RewriteRule /calibrations/([0-9]+)$ /api/calibration.php?id=$1
+RewriteRule /calibrations/ /api/calibrations.php
