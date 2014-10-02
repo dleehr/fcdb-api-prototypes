@@ -15,6 +15,19 @@ class Calibration(dict):
       calibration = Calibration(column_names=cursor.column_names, values=row)
     cursor.close()
     return calibration
+
+  @classmethod
+  def filter_by_age(cls, min, max):
+    cursor = connection.cursor()
+    query = "SELECT * FROM calibrations WHERE minAge > %s AND maxAge < %s" % (min, max)
+    cursor.execute(query)
+    calibrations = list()
+    for row in cursor:
+      calibration = Calibration(column_names=cursor.column_names, values=row)
+      calibrations.append(calibration)
+    cursor.close()
+    return calibrations
+
   def __init__(self, column_names=None, values=None):
     d = dict(zip(column_names,values))
     for key in d:
