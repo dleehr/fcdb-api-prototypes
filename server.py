@@ -3,10 +3,6 @@ import json
 from app.models.calibration import *
 app = Flask(__name__)
 
-@app.route("/api")
-def hello():
-    return "Hello World!"
-
 @app.route("/api/calibrations/<int:calibration_id>")
 def calibration(calibration_id):
   c = Calibration.find_by_id(calibration_id)
