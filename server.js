@@ -22,12 +22,7 @@ var port = process.env.PORT || 8081; 		// set our port
 // =============================================================================
 var router = express.Router(); 				// get an instance of the express Router
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-	res.json({ message: 'hooray! welcome to our api!' });
-});
-
-// more routes for our API will happen here
+// Routes for our API will happen here
 router.route('/calibrations/:calibration_id')
   .get(function(req, res) {
     Calibration.findById(req.params.calibration_id, function(err, calibration) {
